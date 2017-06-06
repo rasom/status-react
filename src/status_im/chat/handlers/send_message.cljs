@@ -70,16 +70,17 @@
 (register-handler :prepare-command!
   (u/side-effect!
     (fn [{:keys [current-public-key network-status] :as db}
-         [_ add-to-chat-id {:keys [chat-id command-message command handler-data] :as params}]]
+         [_ add-to-chat-id {:keys [chat-id command-message command] :as params}]]
       (let [clock-value   (messages/get-last-clock-value chat-id)
             request       (:request (:handler-data command))
+            handler-data  (:handler-data command)
             hidden-params (->> (:params (:command command))
                                (filter #(= (:hidden %) true))
                                (map :name))
             command'      (->> (assoc command-message :handler-data handler-data)
                                (prepare-command current-public-key chat-id clock-value request)
                                (cu/check-author-direction db chat-id))]
-        (log/debug "Handler data: " request handler-data (dissoc params :commands :command-message))
+        (log/debug "Handler data: " request (:handler-data command) (dissoc params :commands :command-message))
         (dispatch [:update-message-overhead! chat-id network-status])
         (dispatch [:set-chat-ui-props {:sending-in-progress? false}])
         (dispatch [::send-command! add-to-chat-id (assoc params :command command') hidden-params])
@@ -301,21 +302,30 @@
                  current-account-id accounts contacts] :as db}
          [_ {:keys [chat-id command]}]]
       (log/debug "sending command: " command)
-      (when (not (get-in contacts [chat-id :dapp?]))
+      (if (get-in contacts [chat-id :dapp?])
+        (when-let [text-message (get-in command [:content :handler-data :text-message])]
+          (dispatch [:received-message
+                     {:message-id   (random/id)
+                      :content      (str text-message)
+                      :content-type text-content-type
+                      :outgoing     false
+                      :chat-id      chat-id
+                      :from         chat-id
+                      :to           "me"}]))
         (let [{:keys [public-key private-key]} (chats chat-id)
               {:keys [group-chat public?]} (get-in db [:chats chat-id])
 
-              payload (-> command
-                          (select-keys [:content :content-type
-                                        :clock-value :show?])
-                          (assoc :timestamp (datetime/now-ms)))
-              payload (if (= network-status :offline)
-                        (assoc payload :show? false)
-                        payload)
-              options {:web3    web3
-                       :message {:from       current-public-key
-                                 :message-id (:message-id command)
-                                 :payload    payload}}]
+              payload      (-> command
+                               (select-keys [:content :content-type
+                                             :clock-value :show?])
+                               (assoc :timestamp (datetime/now-ms)))
+              payload      (if (= network-status :offline)
+                             (assoc payload :show? false)
+                             payload)
+              options      {:web3    web3
+                            :message {:from       current-public-key
+                                      :message-id (:message-id command)
+                                      :payload    payload}}]
           (cond
             (and group-chat (not public?))
             (protocol/send-group-message! (assoc options

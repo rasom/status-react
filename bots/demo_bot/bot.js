@@ -107,3 +107,20 @@ status.addListener("on-message-send", function (params, context) {
         }
     });
 });
+
+status.command({
+    name: "test",
+    icon: "test",
+    title: "test",
+    description: "test",
+    color: "#a187d5",
+    sequentialParams: true,
+    params: [{
+        name: "address",
+        type: status.types.TEXT,
+        placeholder: "address"
+    }],
+    handler: function (params) {
+        return {"text-message": "Address " + params.address};
+    }
+});
