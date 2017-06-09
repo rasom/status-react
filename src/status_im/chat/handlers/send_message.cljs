@@ -242,14 +242,22 @@
 (register-handler :send-message-from-jail
   (u/side-effect!
     (fn [_ [_ {:keys [chat_id message]}]]
-      (dispatch [:received-message
-                 {:message-id   (random/id)
-                  :content      (str message)
-                  :content-type text-content-type
-                  :outgoing     false
-                  :chat-id      chat_id
-                  :from         chat_id
-                  :to           "me"}]))))
+      (let [parsed-message (types/json->clj message)]
+        (cond
+          (string? parsed-message)
+          (dispatch [:received-message
+                     {:message-id   (random/id)
+                      :content      (str message)
+                      :content-type text-content-type
+                      :outgoing     false
+                      :chat-id      chat_id
+                      :from         chat_id
+                      :to           "me"}])
+
+          (= "request" (:type parsed-message))
+          (dispatch [:add-request-message!
+                     {:content (:content parsed-message)
+                      :chat-id chat_id}]))))))
 
 (register-handler :show-suggestions-from-jail
   (u/side-effect!
@@ -304,28 +312,35 @@
       (log/debug "sending command: " command)
       (if (get-in contacts [chat-id :dapp?])
         (when-let [text-message (get-in command [:content :handler-data :text-message])]
-          (dispatch [:received-message
-                     {:message-id   (random/id)
-                      :content      (str text-message)
-                      :content-type text-content-type
-                      :outgoing     false
-                      :chat-id      chat-id
-                      :from         chat-id
-                      :to           "me"}]))
+          (cond
+            (string? text-message)
+            (dispatch [:received-message
+                       {:message-id   (random/id)
+                        :content      (str text-message)
+                        :content-type text-content-type
+                        :outgoing     false
+                        :chat-id      chat-id
+                        :from         chat-id
+                        :to           "me"}])
+
+            (= "request" (:type text-message))
+            (dispatch [:add-request-message!
+                       {:content (:content text-message)
+                        :chat-id chat-id}])))
         (let [{:keys [public-key private-key]} (chats chat-id)
               {:keys [group-chat public?]} (get-in db [:chats chat-id])
 
-              payload      (-> command
-                               (select-keys [:content :content-type
-                                             :clock-value :show?])
-                               (assoc :timestamp (datetime/now-ms)))
-              payload      (if (= network-status :offline)
-                             (assoc payload :show? false)
-                             payload)
-              options      {:web3    web3
-                            :message {:from       current-public-key
-                                      :message-id (:message-id command)
-                                      :payload    payload}}]
+              payload (-> command
+                          (select-keys [:content :content-type
+                                        :clock-value :show?])
+                          (assoc :timestamp (datetime/now-ms)))
+              payload (if (= network-status :offline)
+                        (assoc payload :show? false)
+                        payload)
+              options {:web3    web3
+                       :message {:from       current-public-key
+                                 :message-id (:message-id command)
+                                 :payload    payload}}]
           (cond
             (and group-chat (not public?))
             (protocol/send-group-message! (assoc options
@@ -342,3 +357,15 @@
             :else
             (protocol/send-message! (assoc-in options
                                               [:message :to] chat-id))))))))
+
+(register-handler :add-request-message!
+  (u/side-effect!
+    (fn [_ [_ {:keys [content chat-id]}]]
+      (dispatch [:received-message
+                 {:message-id   (random/id)
+                  :content      (assoc content :bot chat-id)
+                  :content-type content-type-command-request
+                  :outgoing     false
+                  :chat-id      chat-id
+                  :from         chat-id
+                  :to           "me"}]))))

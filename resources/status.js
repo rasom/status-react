@@ -219,7 +219,7 @@ var status = {
         addContext("update-db", db)
     },
     sendMessage: function (text) {
-        statusSignals.sendMessage(text);
+        statusSignals.sendMessage(JSON.stringify(text));
     },
     addLogMessage: function (type, message) {
         var message = {
