@@ -93,7 +93,7 @@
              [view @markup]
              [text {:style st/style-message-text
                     :font  :default}
-              (or @markup text-content content)])]]
+              (or text-content @markup content)])]]
          (when (:request-text command)
            [view st/command-request-text-view
             [text {:style st/style-sub-text
