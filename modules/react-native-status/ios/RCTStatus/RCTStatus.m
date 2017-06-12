@@ -3,6 +3,8 @@
 #import "React/RCTEventDispatcher.h"
 #import <Statusgo/Statusgo.h>
 @import Instabug;
+#import <mach/mach.h>
+#import <assert.h>
 
 @interface NSDictionary (BVJSONString)
 -(NSString*) bv_jsonStringWithPrettyPrint:(BOOL) prettyPrint;
@@ -142,14 +144,101 @@ RCT_EXPORT_METHOD(callJail:(NSString *)chatId
     });
 }
 
+void report_resources()
+{
+    kern_return_t kr;
+    task_info_data_t tinfo;
+    mach_msg_type_number_t task_info_count;
+    
+    task_info_count = TASK_INFO_MAX;
+    kr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)tinfo, &task_info_count);
+    if (kr != KERN_SUCCESS) {
+        return;
+    }
+    
+    task_basic_info_t      basic_info;
+    thread_array_t         thread_list;
+    mach_msg_type_number_t thread_count;
+    
+    thread_info_data_t     thinfo;
+    mach_msg_type_number_t thread_info_count;
+    
+    thread_basic_info_t basic_info_th;
+    uint32_t stat_thread = 0; // Mach threads
+    
+    basic_info = (task_basic_info_t)tinfo;
+    
+    // get threads in the task
+    kr = task_threads(mach_task_self(), &thread_list, &thread_count);
+    if (kr != KERN_SUCCESS) {
+        return;
+    }
+    if (thread_count > 0)
+        stat_thread += thread_count;
+    
+    long tot_sec = 0;
+    long tot_usec = 0;
+    float tot_cpu = 0;
+    int j;
+    
+    for (j = 0; j < (int)thread_count; j++)
+    {
+        thread_info_count = THREAD_INFO_MAX;
+        kr = thread_info(thread_list[j], THREAD_BASIC_INFO,
+                         (thread_info_t)thinfo, &thread_info_count);
+        if (kr != KERN_SUCCESS) {
+            return;
+        }
+        
+        basic_info_th = (thread_basic_info_t)thinfo;
+        
+        if (!(basic_info_th->flags & TH_FLAGS_IDLE)) {
+            tot_sec = tot_sec + basic_info_th->user_time.seconds + basic_info_th->system_time.seconds;
+            tot_usec = tot_usec + basic_info_th->user_time.microseconds + basic_info_th->system_time.microseconds;
+            tot_cpu = tot_cpu + basic_info_th->cpu_usage / (float)TH_USAGE_SCALE * 100.0;
+        }
+        
+    } // for each thread
+    
+    kr = vm_deallocate(mach_task_self(), (vm_offset_t)thread_list, thread_count * sizeof(thread_t));
+    assert(kr == KERN_SUCCESS);
+    
+    struct task_basic_info info;
+    mach_msg_type_number_t size = sizeof(info);
+    kern_return_t kerr = task_info(mach_task_self(),
+                                   TASK_BASIC_INFO,
+                                   (task_info_t)&info,
+                                   &size);
+    if( kerr == KERN_SUCCESS ) {
+        NSLog(@"ResourcesLog ThrCnt %u CPU %g MEM(in MB): %f", (int)thread_count, tot_cpu, ((CGFloat)info.resident_size / 1000000));
+    } else {
+        NSLog(@"Error with task_info(): %s", mach_error_string(kerr));
+    }
+}
+
+void startReporting() {
+    // Delay execution of my block for 10 seconds.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        report_resources();
+        startReporting();
+    });
+}
+
+bool reportingStarted = false;
+
 ////////////////////////////////////////////////////////////////////
 #pragma mark - startNode
 //////////////////////////////////////////////////////////////////// startNode
 RCT_EXPORT_METHOD(startNode:(NSString *)configString
                   callback:(RCTResponseSenderBlock)callback) {
 #if DEBUG
-    NSLog(@"StartNode() method called");
+    NSLog(@"ResourcesLog StartNode() method called");
+    report_resources();
 #endif
+    if(!reportingStarted) {
+        reportingStarted = true;
+        startReporting();
+    }
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     NSURL *rootUrl =[[fileManager
@@ -247,7 +336,8 @@ RCT_EXPORT_METHOD(startNode:(NSString *)configString
 //////////////////////////////////////////////////////////////////// StopNode
 RCT_EXPORT_METHOD(stopNode:(RCTResponseSenderBlock)callback) {
 #if DEBUG
-    NSLog(@"StopNode() method called");
+    NSLog(@"ResourcesLog StopNode() method called");
+    report_resources();
 #endif
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^(void)
