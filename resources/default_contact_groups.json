@@ -31,5 +31,43 @@
             "gnosis",
             "mkr-market"
         ]
+    },
+    "hackathon":
+    {
+      "name":
+      {
+        "en": "Hackathon submissions"
+      },
+      "contacts":
+      [
+        "36-ens-broker",
+        "154-get-it-done",
+        "20-coinpanion",
+        "38-doctor-wetrust",
+        "83-eth-lend-chatbot",
+        "131-relike",
+        "13-registereth-bot",
+        "swordshield-148",
+        "18-ThreeEyedGames_Etherenity",
+        "17-unconf-decentralized-unconference-planner",
+        "versus-bot",
+        "40-WeLottify",
+        "103-who-pays",
+        "8-Block-Paper-Scissors",
+        "117-bootcamp",
+        "108-diabetes-bot",
+        "35-DTS",
+        "FlightbotEtherisc1",
+        "140-favor",
+        "22-GivenDapp",
+        "giveth",
+        "31-genesis-token-tracker",
+        "86-hog",
+        "113-pixelwall",
+        "158-aloha-bot-and-dapp",
+        "25-split-the-tab",
+        "141-status-jackpot",
+        "10-gifhive"
+      ]
     }
 }

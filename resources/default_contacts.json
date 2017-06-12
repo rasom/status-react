@@ -1,275 +1,550 @@
 {
-    "browse":
-    {
-        "name":
-        {
-            "en": "Browse"
-        },
-        "dapp?": true,
-        "bot-url": "local://browse-bot",
-        "global-command": {
-          "description":"Launch the browser",
-          "color": "#ffa500",
-          "name": "global",
-          "params": [{
-            "name": "url",
-            "placeholder":"URL",
-            "type":"text"
-          }],
-          "title":"Browser",
-          "registered-only":true,
-          "has-handler": false,
-          "fullscreen":true
-        },
-        "unremovable?": true
+  "browse": {
+    "name": {
+      "en": "Browse"
     },
-    "wallet":
-    {
-        "name":
+    "dapp?": true,
+    "bot-url": "local://browse-bot",
+    "global-command": {
+      "description": "Launch the browser",
+      "color": "#ffa500",
+      "name": "global",
+      "params": [
         {
-            "en": "Wallet",
-            "es": "Monedero",
-            "es-ar": "Monedero",
-            "ru": "Кошелек"
-        },
-        "photo-path": "icon_wallet_avatar",
-        "add-chat?": true,
-        "dapp?": true,
-        "groups": ["dapps"],
-        "has-global-command?": true,
-        "dapp-url":
-        {
-          "en": "https://status.im/dapps/wallet/"
-        },
-        "bot-url": "local://wallet-bot",
-        "unremovable?": true
+          "name": "url",
+          "placeholder": "URL",
+          "type": "text"
+        }
+      ],
+      "title": "Browser",
+      "registered-only": true,
+      "has-handler": false,
+      "fullscreen": true
     },
-
-    "mailman":
-    {
-        "name":
-        {
-            "en": "Mailman",
-            "ru": "Печкин"
-        },
-        "dapp?": true,
-        "has-global-command?": true,
-        "bot-url": "local://mailman-bot"
+    "unremovable?": true
+  },
+  "wallet": {
+    "name": {
+      "en": "Wallet",
+      "es": "Monedero",
+      "es-ar": "Monedero",
+      "ru": "Кошелек"
     },
-
-    "demo-bot":
-    {
-        "name":
-        {
-            "en": "Demo bot"
-        },
-        "dapp?": true,
-        "bot-url": "local://demo-bot"
+    "photo-path": "icon_wallet_avatar",
+    "add-chat?": true,
+    "dapp?": true,
+    "groups": [
+      "dapps"
+    ],
+    "has-global-command?": true,
+    "dapp-url": {
+      "en": "https://status.im/dapps/wallet/"
     },
-
-    "0x0428c9d6c1aaaa8369a7c63819684f30e34396dc0907d49afeac85a0a774ccb919b3482097d992e66bcc538e7a0c6acf874c77748f396f53c0a102e10d1a37765b":
-    {
-        "name":
-        {
-            "en": "Jarrad"
-        },
-        "photo-path": "contacts://jarrad",
-        "add-chat?": false,
-        "dapp?": false
+    "bot-url": "local://wallet-bot",
+    "unremovable?": true
+  },
+  "mailman": {
+    "name": {
+      "en": "Mailman",
+      "ru": "Печкин"
     },
-
-    "auction-house":
-    {
-        "name":
-        {
-            "en": "Auction House"
-        },
-        "photo-path": "contacts://auction-house",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "http://auctionhouse.dappbench.com"
-        },
-        "groups": ["state-of-dapps"]
+    "dapp?": true,
+    "has-global-command?": true,
+    "bot-url": "local://mailman-bot"
+  },
+  "demo-bot": {
+    "name": {
+      "en": "Demo bot"
     },
-
-    "flight-delays-suck":
-    {
-        "name":
-        {
-            "en": "Flight Delays Suck"
-        },
-        "photo-path": "contacts://flight-delays-suck",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://fdd.etherisc.com"
-        },
-        "groups": ["state-of-dapps"]
+    "dapp?": true,
+    "bot-url": "local://demo-bot"
+  },
+  "0x0428c9d6c1aaaa8369a7c63819684f30e34396dc0907d49afeac85a0a774ccb919b3482097d992e66bcc538e7a0c6acf874c77748f396f53c0a102e10d1a37765b": {
+    "name": {
+      "en": "Jarrad"
     },
-
-    "mkr-market":
-    {
-        "name":
-        {
-            "en": "Maker Market"
-        },
-        "photo-path": "contacts://mkr-market",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://mkr.market"
-        },
-        "groups": ["state-of-dapps"]
+    "photo-path": "contacts://jarrad",
+    "add-chat?": false,
+    "dapp?": false
+  },
+  "auction-house": {
+    "name": {
+      "en": "Auction House"
     },
-
-    "FirstBlood":
-    {
-        "name":
-        {
-            "en": "FirstBlood"
-        },
-        "photo-path": "contacts://firstblood",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://app.firstblood.io"
-        },
-        "groups": ["state-of-dapps"]
+    "photo-path": "contacts://auction-house",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "http://auctionhouse.dappbench.com"
     },
-
-    "oaken-water-meter":
-    {
-        "name":
-        {
-            "en": "Oaken Water Meter"
-        },
-        "photo-path": "contacts://oaken-water-meter",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "http://waterflowdapp.projectoaken.com"
-        },
-        "groups": ["dapps"]
+    "groups": [
+      "state-of-dapps"
+    ]
+  },
+  "flight-delays-suck": {
+    "name": {
+      "en": "Flight Delays Suck"
     },
-
-    "gnosis":
-    {
-        "name":
-        {
-            "en": "Gnosis"
-        },
-        "photo-path": "contacts://gnosis",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://beta.gnosis.pm"
-        },
-        "groups": ["state-of-dapps"]
+    "photo-path": "contacts://flight-delays-suck",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://fdd.etherisc.com"
     },
-
-    "melonport":
-    {
-        "name":
-        {
-            "en": "Melonport"
-        },
-        "photo-path": "contacts://melonport",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://portal.melonport.com/"
-        },
-        "groups": ["dapps"]
+    "groups": [
+      "state-of-dapps"
+    ]
+  },
+  "mkr-market": {
+    "name": {
+      "en": "Maker Market"
     },
-
-    "bchat":
-    {
-        "name":
-        {
-            "en": "bchat"
-        },
-        "photo-path": "contacts://bchat",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "http://swarm-gateways.net/bzz:/go-bchat.eth/"
-        },
-        "groups": ["dapps"]
+    "photo-path": "contacts://mkr-market",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://mkr.market"
     },
-    
-    "Dentacoin":
-    {
-        "name":
-        {
-            "en": "Dentacoin"
-        },
-        "photo-path": "contacts://dentacoin",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "http://dentacoin.com/testnet/"
-        },
-        "groups": ["dapps"]
+    "groups": [
+      "state-of-dapps"
+    ]
+  },
+  "FirstBlood": {
+    "name": {
+      "en": "FirstBlood"
     },
-
-    "Augur":
-    {
-        "name":
-        {
-            "en": "Augur"
-        },
-        "photo-path": "contacts://augur",
-        "dapp?": true,
-        "dapp-url":
-        {
-          "en": "https://app.augur.net"
-        },
-        "groups": ["dapps"]
+    "photo-path": "contacts://firstblood",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://app.firstblood.io"
     },
-
-    "Ethlance":
-    {
-        "name":
-        {
-            "en": "Ethlance"
-        },
-        "photo-path": "contacts://ethlance",
-        "dapp?": true,
-        "dapp-url":
-        {
-          "en": "https://madvas.github.io/ethlance/resources/public/"
-        },
-        "groups": ["dapps"]
+    "groups": [
+      "state-of-dapps"
+    ]
+  },
+  "oaken-water-meter": {
+    "name": {
+      "en": "Oaken Water Meter"
     },
-    
-    "Commiteth":
-    {
-        "name":
-        {
-            "en": "Commiteth"
-        },
-        "photo-path": "contacts://commiteth",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "https://commiteth.com"
-        },
-        "groups": ["dapps"]
+    "photo-path": "contacts://oaken-water-meter",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "http://waterflowdapp.projectoaken.com"
     },
-
-    "Etherplay":
-    {
-        "name":
-        {
-            "en": "Etherplay"
-        },
-        "photo-path": "contacts://etherplay",
-        "dapp?": true,
-        "dapp-url":
-        {
-            "en": "http://test.etherplay.io"
-        },
-        "groups": ["dapps"]
-    }
+    "groups": [
+      "dapps"
+    ]
+  },
+  "gnosis": {
+    "name": {
+      "en": "Gnosis"
+    },
+    "photo-path": "contacts://gnosis",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://beta.gnosis.pm"
+    },
+    "groups": [
+      "state-of-dapps"
+    ]
+  },
+  "melonport": {
+    "name": {
+      "en": "Melonport"
+    },
+    "photo-path": "contacts://melonport",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://portal.melonport.com/"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "bchat": {
+    "name": {
+      "en": "bchat"
+    },
+    "photo-path": "contacts://bchat",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "http://swarm-gateways.net/bzz:/go-bchat.eth/"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "Dentacoin": {
+    "name": {
+      "en": "Dentacoin"
+    },
+    "photo-path": "contacts://dentacoin",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "http://dentacoin.com/testnet/"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "Augur": {
+    "name": {
+      "en": "Augur"
+    },
+    "photo-path": "contacts://augur",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://app.augur.net"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "Ethlance": {
+    "name": {
+      "en": "Ethlance"
+    },
+    "photo-path": "contacts://ethlance",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://madvas.github.io/ethlance/resources/public/"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "Commiteth": {
+    "name": {
+      "en": "Commiteth"
+    },
+    "photo-path": "contacts://commiteth",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "https://commiteth.com"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "Etherplay": {
+    "name": {
+      "en": "Etherplay"
+    },
+    "photo-path": "contacts://etherplay",
+    "dapp?": true,
+    "dapp-url": {
+      "en": "http://test.etherplay.io"
+    },
+    "groups": [
+      "dapps"
+    ]
+  },
+  "36-ens-broker": {
+    "name": {
+      "en": "#36 ENS DApp and bot"
+    },
+    "bot-url": "http://ensbot.legogris.se/public/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "154-get-it-done": {
+    "name": {
+      "en": "#65 Get it done!"
+    },
+    "dapp-url": {
+      "en":"https://xavivives.github.io/Avon/"},
+    "bot-url": "https://xavivives.github.io/Avon/js/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "20-coinpanion": {
+    "name": {
+      "en": "#20 CoinPanion"
+    },
+    "dapp-url": {
+      "en":"http://coinpanion.surge.sh/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "38-doctor-wetrust": {
+    "name": {
+      "en": "#38 Dr. WeTrust"
+    },
+    "bot-url": "http://192.241.143.62/bot/bot.js",
+    "photo-path": "http://192.241.143.62/img/wetrust.png",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "83-eth-lend-chatbot": {
+    "name": {
+      "en": "#83 Eth Lend Chatbot"
+    },
+    "bot-url": "http://aaroncolaco.com/status-hackathon/bots/ethLend.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "131-relike": {
+    "name": {
+      "en": "#131 Relike"
+    },
+    "dapp-url": {
+      "en":"https://noman.land/relike/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "13-registereth-bot": {
+    "name": {
+      "en": "#13 RegisterEth Bot"
+    },
+    "bot-url": "https://adamdossa.github.io/RegisterEthBot/public/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "swordshield-148": {
+    "name": {
+      "en": "#148 SwordShield"
+    },
+    "dapp-url": {
+      "en":"https://swordshield-94d17.firebaseapp.com/"},
+    "bot-url": "https://swordshield-94d17.firebaseapp.com/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "18-ThreeEyedGames_Etherenity": {
+    "name": {
+      "en": "#18 ThreeEyedGames Etherenity"
+    },
+    "dapp-url": {
+      "en":"https://floar.github.io/Etherenity/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "17-unconf-decentralized-unconference-planner": {
+    "name": {
+      "en": "#17 Unconf - Decentralized Unconference Planner"
+    },
+    "dapp-url": {
+      "en":"https://blockchainlabsnz.github.io/Unconf-DApp/index.html"},
+    "bot-url": "https://blockchainlabsnz.github.io/Unconf-DApp/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "versus-bot": {
+    "name": {
+      "en": "#180 Versus DApp and bot"
+    },
+    "dapp-url": {
+      "en":"http://versus.obedbk.ru"},
+    "bot-url": "http://versus.obedbk.ru/js/bots/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "40-WeLottify": {
+    "name": {
+      "en": "#40 WeLottify"
+    },
+    "dapp-url": {
+      "en":"http://dapp.welottify.com"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "103-who-pays": {
+    "name": {
+      "en": "#103 WhoPays"
+    },
+    "bot-url": "http://status.ethdeveloper.com/bot/bot.js",
+    "photo-path": "https://ethdeveloper.com/static/whopays-icon.png",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "8-Block-Paper-Scissors": {
+    "name": {
+      "en": "#8 Block Paper Scissors"
+    },
+    "dapp-url": {
+      "en":"http://JasoonS.github.io/Status-Hackathon/"},
+    "bot-url": "http://JasoonS.github.io/Status-Hackathon/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "117-bootcamp": {
+    "name": {
+      "en": "#117 Bootcamp"
+    },
+    "bot-url": "https://tharios.github.io/status_bot/public/bot/bot_coach.js",
+    "photo-path": "http://preview.cutcaster.com/cutcaster-vector-800887512-Drill-Sergeant.jpg",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "108-diabetes-bot": {
+    "name": {
+      "en": "#108 Diabetes"
+    },
+    "dapp-url": {
+      "en":"https://freekp.github.io/diabetes-hackathon/"},
+    "bot-url": "https://freekp.github.io/diabetes-hackathon/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "35-DTS": {
+    "name": {
+      "en": "#35 MyTutor"
+    },
+    "dapp-url": {
+      "en":"http://130.211.50.165:8100"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "44-FlightbotEtherisc": {
+    "name": {
+      "en": "#44 Etherisc Flight Delay Chatbot Interface"
+    },
+    "bot-url": "https://raw.githubusercontent.com/etherisc/chatbot/api-status/status/public/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "140-favor": {
+    "name": {
+      "en": "#140 Favor Network"
+    },
+    "bot-url": "http://favor.network/statusbot.js",
+    "photo-path": "http://favor.network/statusbot.png",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "22-GivenDapp": {
+    "name": {
+      "en": "#22 Given Charity Dapp"
+    },
+    "dapp-url": {
+      "en":"https://andrewrd.github.io/given-dApp/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "124-giveth": {
+    "name": {
+      "en": "#124 giveth"
+    },
+    "bot-url": "https://adamdossa.github.io/RegisterEthBot/giveth.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "31-genesis-token-tracker": {
+    "name": {
+      "en": "#31 Genesis Token Tracker (GTT)"
+    },
+    "dapp-url": {
+      "en":"http://bit.ly/genesistokentracker"},
+    "bot-url": "http://genesis-token-tracker.s3-website-us-west-2.amazonaws.com/bots/welcome.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "86-hog": {
+    "name": {
+      "en": "#86 Hog"
+    },
+    "dapp-url": {
+      "en":"http://hog.etherplay.io"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "113-pixelwall": {
+    "name": {
+      "en": "#113 Pixelwall project"
+    },
+    "dapp-url": {
+      "en":"http://pixelwall.s3-website-eu-west-1.amazonaws.com/dapp/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "158-aloha-bot-and-dapp": {
+    "name": {
+      "en": "#158 AlohaBot"
+    },
+    "dapp-url": {
+      "en":"https://github.com/sevenmiles7/status-aloha/"},
+    "bot-url": "https://github.com/sevenmiles7/status-aloha/bot/bot.js",
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "25-split-the-tab": {
+    "name": {
+      "en": "#25 Split the Tab"
+    },
+    "dapp-url": {
+      "en":"http://status-hackathon.getforge.io/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "141-status-jackpot": {
+    "name": {
+      "en": "#141 Status Jackpot"
+    },
+    "dapp-url": {
+      "en":"http://52.199.67.153:3000/"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  },
+  "10-gifhive": {
+    "name": {
+      "en": "#10 Gifhive"
+    },
+    "dapp-url": {
+      "en":"isasftw.gq"},
+    "dapp?": true,
+    "groups": [
+      "hackathon"
+    ]
+  }
 }
