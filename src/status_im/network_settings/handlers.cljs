@@ -5,7 +5,8 @@
             [status-im.data-store.networks :as networks]
             [status-im.utils.js-resources :as js-res]
             [status-im.utils.types :as t]
-            [status-im.components.status :as status]))
+            [status-im.components.status :as status]
+            [status-im.protocol.core :as protocol]))
 
 (defn save-networks! [{:keys [new-networks]} _]
   (networks/save-all new-networks))
@@ -45,7 +46,9 @@
   (u/side-effect!
     (fn [{:keys [current-account-id networks]} [_ network]]
       (dispatch [:account-update {:network network}])
+      (protocol/stop-watching-all!)
+      (protocol/reset-all-pending-messages!)
       (status/stop-node)
+      (dispatch [:set :on-node-started #(dispatch [:navigate-to-clean :accounts])])
       (let [config (get-in networks [network :config])]
-        (status/start-node config))
-      (dispatch [:navigate-to-clean :accounts]))))
+        (status/start-node config)))))
