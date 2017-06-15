@@ -175,8 +175,7 @@
                                  :name     name
                                  :contacts (conj identities current-public-key)
                                  :admin    current-public-key}
-                       :message {:from       current-public-key
-                                 :message-id (random/id)}}]
+                       :message {:from       current-public-key}}]
     (dispatch [:update-chat! {:chat-id     current-chat-id
                               :public-key  public
                               :private-key private}])
@@ -188,10 +187,12 @@
     (protocol/invite-to-group!
       (-> group-message
           (assoc-in [:group :keypair] new-keypair)
+          (assoc-in [:message :message-id] (random/id))
           (assoc :identities selected-participants)))
     (protocol/update-group!
       (-> group-message
           (assoc-in [:group :keypair] new-keypair)
+          (assoc-in [:message :message-id] (random/id))
           (assoc :identities identities)))
     (doseq [identity selected-participants]
       (protocol/add-to-group! {:web3     web3
