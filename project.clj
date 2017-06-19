@@ -30,23 +30,23 @@
                                    [io.appium/java-client "3.4.1"]
                                    [hawk "0.2.10"]]
                     :plugins      [[lein-doo "0.1.6"]]
-                    :source-paths ["src" "env/dev"]
+                    :source-paths ["src" "env/dev" "protocol/src"]
                     :cljsbuild    {:builds [{:id           :ios
-                                             :source-paths ["src" "env/dev"]
+                                             :source-paths ["src" "env/dev" "protocol/src"]
                                              :figwheel     true
                                              :compiler     {:output-to     "target/ios/not-used.js"
                                                             :main          "env.ios.main"
                                                             :output-dir    "target/ios"
                                                             :optimizations :none}}
                                             {:id           :android
-                                             :source-paths ["src" "env/dev"]
+                                             :source-paths ["src" "env/dev" "protocol/src"]
                                              :figwheel     true
                                              :compiler     {:output-to     "target/android/not-used.js"
                                                             :main          "env.android.main"
                                                             :output-dir    "target/android"
                                                             :optimizations :none}}
                                             {:id           :test
-                                             :source-paths ["src" "test/cljs"]
+                                             :source-paths ["src" "protocol/src" "test/cljs"]
                                              :compiler
                                                            {:main          status-im.test.runner
                                                             :output-to     "target/test/test.js"
@@ -54,8 +54,15 @@
                                                             :target        :nodejs}}]}
                     :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
                                    :timeout          240000}}
+             :test {:cljsbuild    {:builds [{:id           "protocol"
+                                             :source-paths ["protocol/src" "protocol/test"]
+                                             :compiler {:main          status-im.protocol.test.core
+                                                        :output-to     "target/protocol/test.js"
+                                                        :output-dir    "target/protocol"
+                                                        :optimizations :none
+                                                        :target        :nodejs}}]}}
              :prod {:cljsbuild {:builds [{:id           "ios"
-                                          :source-paths ["src" "env/prod"]
+                                          :source-paths ["src" "protocol" "env/prod"]
                                           :compiler     {:output-to          "index.ios.js"
                                                          :main               "env.ios.main"
                                                          :output-dir         "target/ios-prod"
@@ -65,7 +72,7 @@
                                                          :externs            ["externs/externs.js"]
                                                          :closure-defines    {"goog.DEBUG" false}}}
                                          {:id           "android"
-                                          :source-paths ["src" "env/prod"]
+                                          :source-paths ["src" "protocol" "env/prod"]
                                           :compiler     {:output-to          "index.android.js"
                                                          :main               "env.android.main"
                                                          :output-dir         "target/android-prod"

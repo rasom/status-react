@@ -12,9 +12,10 @@
             [status-im.components.nfc :as nfc]
             [status-im.constants :as c]
             [cljs.reader :refer [read-string]]
-            [status-im.navigation.handlers :as nav]))
+            [status-im.navigation.handlers :as nav]
+            [status-im.utils.modules :as modules]))
 
-(def web3 (js/require "web3"))
+(def web3 (modules/require-js "web3"))
 
 (defn by-public-key [public-key contacts]
   (when-let [{:keys [address]} (contacts public-key)]

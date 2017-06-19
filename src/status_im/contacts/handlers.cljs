@@ -8,13 +8,13 @@
             [status-im.utils.utils :refer [http-post]]
             [status-im.utils.phone-number :refer [format-phone-number]]
             [status-im.utils.handlers :as u]
-            [status-im.utils.utils :refer [require]]
             [status-im.navigation.handlers :as nav]
             [status-im.utils.random :as random]
             [status-im.i18n :refer [label]]
             [taoensso.timbre :as log]
             [cljs.reader :refer [read-string]]
-            [status-im.utils.js-resources :as js-res]))
+            [status-im.utils.js-resources :as js-res]
+            [status-im.utils.modules :as modules]))
 
 (defmethod nav/preload-data! :group-contacts
   [db [_ _ group show-search?]]
@@ -123,7 +123,7 @@
 (register-handler :load-contacts load-contacts!)
 
 ;; TODO see https://github.com/rt2zz/react-native-contacts/issues/45
-(def react-native-contacts (js/require "react-native-contacts"))
+(def react-native-contacts (modules/require-js "react-native-contacts"))
 
 (defn contact-name [contact]
   (->> contact

@@ -1,8 +1,9 @@
-(ns status-im.utils.identicon)
+(ns status-im.utils.identicon
+  (:require [status-im.utils.modules :as modules]))
 
 (def default-size 40)
 
-(def identicon-js (js/require "identicon.js"))
+(def identicon-js (modules/require-js "identicon.js"))
 
 (defn identicon
   ([hash] (identicon hash default-size))

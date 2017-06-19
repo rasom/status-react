@@ -1,6 +1,7 @@
-(ns status-im.utils.fs)
+(ns status-im.utils.fs
+  (:require [status-im.utils.modules :as modules]))
 
-(def fs (js/require "react-native-fs"))
+(def fs (modules/require-js "react-native-fs"))
 
 (defn move-file [src dst handler]
   (-> (.moveFile fs src dst)

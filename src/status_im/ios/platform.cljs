@@ -1,7 +1,8 @@
 (ns status-im.ios.platform
   (:require [status-im.components.styles :as styles]
             [status-im.i18n :refer [label]]
-            [status-im.utils.utils :as utils]))
+            [status-im.utils.utils :as utils]
+            [status-im.utils.modules :as modules]))
 
 (def component-styles
   {:status-bar            {:default     {:height    20
@@ -69,7 +70,7 @@
 
 ;; Dialogs
 
-(def react-native (js/require "react-native"))
+(def react-native (modules/require-js "react-native"))
 
 (defn action-sheet-options [options]
   (let [destructive-opt-index (utils/first-index :destructive? options)

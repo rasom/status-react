@@ -1,10 +1,11 @@
 (ns status-im.utils.phone-number
-  (:require [status-im.i18n :refer [label]]))
+  (:require [status-im.i18n :refer [label]]
+            [status-im.utils.modules :as modules]))
 
-(def i18n (js/require "react-native-i18n"))
+(def i18n (modules/require-js "react-native-i18n"))
 (def locale (or (.-locale i18n) "___en"))
 (def country-code (subs locale 3 5))
-(def awesome-phonenumber (js/require "awesome-phonenumber"))
+(def awesome-phonenumber (modules/require-js "awesome-phonenumber"))
 
 ;; todo check wrong numbers, .getNumber returns empty string
 (defn format-phone-number [number]

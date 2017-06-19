@@ -2,17 +2,13 @@
   (:require [status-im.constants :as const]
             [status-im.i18n :refer [label]]
             [reagent.core :as r]
-            [clojure.string :as str]))
-
-(defn require [module]
-  (if (exists? js/window)
-    (js/require module)
-    #js {}))
+            [clojure.string :as str]
+            [status-im.utils.modules :as modules]))
 
 (defn log [obj]
   (.log js/console obj))
 
-(def react-native (js/require "react-native"))
+(def react-native (modules/require-js "react-native"))
 
 (defn show-popup [title content]
   (.alert (.-Alert react-native)

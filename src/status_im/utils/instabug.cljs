@@ -1,7 +1,8 @@
 (ns status-im.utils.instabug
-  (:require [taoensso.timbre :as log]))
+  (:require [taoensso.timbre :as log]
+            [status-im.utils.modules :as modules]))
 
-(def instabug-rn (js/require "instabug-reactnative"))
+(def instabug-rn (modules/require-js "instabug-reactnative"))
 
 (defn log [str]
   (if js/goog.DEBUG

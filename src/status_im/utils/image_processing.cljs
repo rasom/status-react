@@ -1,9 +1,10 @@
 (ns status-im.utils.image-processing
   (:require [status-im.utils.fs :refer [read-file]]
             [taoensso.timbre :as log]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [status-im.utils.modules :as modules]))
 
-(def resizer-class (js/require "react-native-image-resizer"))
+(def resizer-class (modules/require-js "react-native-image-resizer"))
 
 (defn- resize [path max-width max-height on-resize on-error]
   (let [resize-fn (aget resizer-class "default" "createResizedImage")]

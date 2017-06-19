@@ -1,4 +1,5 @@
-(ns cljsjs.react)
+(ns cljsjs.react
+  (:require [status-im.utils.modules :as modules]))
 
 (when (exists? js/window)
-  (set! js/ReactNative (js/require "react-native")))
+  (set! js/ReactNative (modules/require-js "react-native")))

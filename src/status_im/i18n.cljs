@@ -37,9 +37,10 @@
     [status-im.translations.zh-yue :as zh-yue]
     [status-im.utils.js-resources :refer [default-contacts]]
     [taoensso.timbre :as log]
-    [clojure.string :as str]))
+    [clojure.string :as str]
+    [status-im.utils.modules :as modules]))
 
-(def i18n (js/require "react-native-i18n"))
+(def i18n (modules/require-js "react-native-i18n"))
 (set! (.-fallbacks i18n) true)
 (set! (.-defaultSeparator i18n) "/")
 

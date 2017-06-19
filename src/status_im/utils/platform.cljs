@@ -1,8 +1,9 @@
 (ns status-im.utils.platform
   (:require [status-im.android.platform :as android]
-            [status-im.ios.platform :as ios]))
+            [status-im.ios.platform :as ios]
+            [status-im.utils.modules :as modules]))
 
-(def react-native (js/require "react-native"))
+(def react-native (modules/require-js "react-native"))
 
 (def platform
   (when-let [pl (.-Platform react-native)]

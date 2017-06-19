@@ -1,5 +1,6 @@
 (ns status-im.android.platform
-  (:require [status-im.components.styles :as styles]))
+  (:require [status-im.components.styles :as styles]
+            [status-im.utils.modules :as modules]))
 
 (def component-styles
   {:status-bar            {:default     {:height       25
@@ -60,7 +61,7 @@
 
 ;; Dialogs
 
-(def react-native-dialogs (js/require "react-native-dialogs"))
+(def react-native-dialogs (modules/require-js "react-native-dialogs"))
 
 (defn show-dialog [{:keys [title options callback]}]
   (let [dialog (new react-native-dialogs)]
@@ -68,7 +69,6 @@
                            :items         (mapv :text options)
                            :itemsCallback callback}))
     (.show dialog)))
-
 
 ;; Structure to be exported
 
